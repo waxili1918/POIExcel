@@ -1,3 +1,6 @@
+https://juejin.cn/post/6975515503078932516
+https://mybatis.org/mybatis-3/zh_CN/dynamic-sql.html
+
 在这段sql的基础上增加startime1，endtime1,startime2，endtime2的时间段，要求统计这两段时间内占比
 
 
@@ -90,3 +93,81 @@ Map<String, Object> result = yourMapper.getRatio(timeIntervals);
 ```
 
 这样，你就可以在 SQL 中灵活地处理多个时间段，并保持代码的简洁性和可维护性。
+
+
+
+
+计算表中a,b两列分别在两段时间内的平均值之差，以及这两个差之间的差值
+
+你可以使用 SQL 来计算表中 `a` 和 `b` 两列在两个时间段内的平均值之差，以及这两个差之间的差值。以下是一个示例 SQL 查询：
+
+```sql
+SELECT
+    AVG(a1) - AVG(a2) AS avg_diff_a,
+    AVG(b1) - AVG(b2) AS avg_diff_b,
+    (AVG(a1) - AVG(a2)) - (AVG(b1) - AVG(b2)) AS diff_between_diffs
+FROM (
+    SELECT
+        AVG(a) AS a1,
+        AVG(b) AS b1
+    FROM your_table
+    WHERE timestamp_column BETWEEN #{starttime1} AND #{endtime1}
+) AS time1,
+(
+    SELECT
+        AVG(a) AS a2,
+        AVG(b) AS b2
+    FROM your_table
+    WHERE timestamp_column BETWEEN #{starttime2} AND #{endtime2}
+) AS time2;
+```
+
+### 说明：
+1. **`AVG(a)` 和 `AVG(b)`**：分别计算 `a` 列和 `b` 列在指定时间段内的平均值。
+2. **子查询**：使用两个子查询分别计算第一个时间段 (`starttime1` 和 `endtime1`) 和第二个时间段 (`starttime2` 和 `endtime2`) 的平均值。
+3. **计算差值**：
+   - `avg_diff_a`：计算 `a` 列在两个时间段的平均值之差。
+   - `avg_diff_b`：计算 `b` 列在两个时间段的平均值之差。
+   - `diff_between_diffs`：计算这两个差之间的差值。
+
+### Java 代码示例：
+在 Java 代码中调用这个 SQL 方法时，你需要传入时间参数：
+
+```java
+Map<String, Object> result = yourMapper.calculateAvgDiff(starttime1, endtime1, starttime2, endtime2);
+```
+
+这样，你就可以得到表中 `a` 和 `b` 列在两个时间段内的平均值之差，以及这两个差之间的差值。
+
+
+
+
+
+
+
+在 Java 中，计算除法并取小数点后六位可以使用 `BigDecimal` 类来精确控制小数位数。代码示例如下：
+
+```java
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+public class DecimalExample {
+    public static void main(String[] args) {
+        // 定义两个数
+        BigDecimal num1 = new BigDecimal("10");
+        BigDecimal num2 = new BigDecimal("3");
+
+        // 执行除法运算并取小数点后六位
+        BigDecimal result = num1.divide(num2, 6, RoundingMode.HALF_UP);
+
+        // 输出结果
+        System.out.println("结果为: " + result);
+    }
+}
+```
+
+### 代码说明：
+1. **`divide` 方法**：`num1.divide(num2, 6, RoundingMode.HALF_UP)` 执行除法运算，并保留小数点后 6 位。
+2. **`RoundingMode.HALF_UP`**：采用四舍五入的方式进行小数点处理。
+
+这样可以保证输出的结果精确到小数点后 6 位。
