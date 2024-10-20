@@ -1,6 +1,11 @@
 https://juejin.cn/post/6975515503078932516
 https://mybatis.org/mybatis-3/zh_CN/dynamic-sql.html
 
+
+https://blog.csdn.net/u014644574/article/details/105695787
+
+https://www.cnblogs.com/ysySelf/p/11549383.html
+
 在这段sql的基础上增加startime1，endtime1,startime2，endtime2的时间段，要求统计这两段时间内占比
 
 
