@@ -6,6 +6,10 @@ https://blog.csdn.net/u014644574/article/details/105695787
 
 https://www.cnblogs.com/ysySelf/p/11549383.html
 
+https://www.jfree.org/jfreechart/javadoc/index.html
+
+https://blog.csdn.net/hfy1237/article/details/126693786
+
 在这段sql的基础上增加startime1，endtime1,startime2，endtime2的时间段，要求统计这两段时间内占比
 
 
